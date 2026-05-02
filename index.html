@@ -10,7 +10,7 @@
             --bg-color: #f8f9fa;
             --text-color: #212529;
             --primary-color: #1a2530;
-            --accent-color: #c5a059; /* ڕەنگی ئاڵتوونی مۆدیرن */
+            --accent-color: #c5a059; /* ڕەنگی ئاڵتوونی مۆدێرن */
             --card-bg: #ffffff;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --transition: all 0.4s ease;
@@ -193,6 +193,39 @@
             opacity: 0.9;
         }
 
+        /* فۆرمی حجزکردن */
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .booking-form input, 
+        .booking-form select, 
+        .booking-form textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .booking-form input:focus, 
+        .booking-form select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
         /* کۆتایی (Footer) */
         footer {
             background-color: var(--primary-color);
@@ -216,6 +249,7 @@
             <li><a href="#home">Home / سەرەکی</a></li>
             <li><a href="#services">Services / خزمەتگوزاری</a></li>
             <li><a href="#rooms">Rooms / ژوورەکان</a></li>
+            <li><a href="#booking">Book / حجزکردن</a></li>
             <li><a href="#contact">Contact / پەیوەندی</a></li>
         </ul>
         <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode / دۆخی تاریک</button>
@@ -224,7 +258,7 @@
     <header class="hero" id="home">
         <h1>Welcome to Kurdistan Hotel</h1>
         <h2>بەخێربێن بۆ هۆتێلی کوردستان</h2>
-        <a href="#rooms" class="btn-primary">Book Now / ئێستا حجز بکە</a>
+        <a href="#booking" class="btn-primary">Book Now / ئێستا حجز بکە</a>
     </header>
 
     <section class="section" id="services">
@@ -259,11 +293,27 @@
         </div>
     </section>
 
+    <section class="section" id="booking">
+        <h2 class="section-title">Book a Room / داواکردنی ژوور</h2>
+        <form class="booking-form" onsubmit="event.preventDefault(); alert('سوپاس، داواکارییەکەت گەیشت!');">
+            <input type="text" placeholder="ناوی تەواو / Full Name" required>
+            <input type="email" placeholder="ئیمەیڵ / Email" required>
+            <select required>
+                <option value="" disabled selected>جۆری ژوور هەڵبژێرە / Select Room Type</option>
+                <option>ژووری تاک / Single Room ($50)</option>
+                <option>سویت / Suite ($150)</option>
+            </select>
+            <input type="date" required>
+            <textarea placeholder="تێبینییەکانت / Your Notes" rows="3"></textarea>
+            <button type="submit" class="btn-primary" style="border: none; padding: 14px; cursor: pointer; border-radius: 8px;">ناردنی داواکاری / Submit</button>
+        </form>
+    </section>
+
     <section class="section" id="contact" style="background-color: var(--card-bg);">
         <h2 class="section-title">Contact Us / پەیوەندیمان پێوە بکە</h2>
         <div style="text-align: center; line-height: 2.0; font-size: 1.1rem;">
             <p>📍 سلێمانی، هەرێمی کوردستان</p>
-            <p>📞 +964 770 195 5817</p>
+            <p>📞 +964 770 000 0000</p>
             <p>📧 info@kurdistanhotel.com</p>
         </div>
     </section>
