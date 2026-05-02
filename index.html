@@ -25,10 +25,13 @@
         }
 
         body {
-            font-family: 'Cairo', 'Poppins', sans-serif;
+            /* گۆڕینی فۆنت بۆ Cairo و پشتگیریکردنی مۆبایل بە Tahoma و Arial */
+            font-family: 'Cairo', 'Tahoma', 'Arial', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
-            line-height: 1.5;
+            line-height: 1.6;
+            direction: rtl;
+            unicode-bidi: embed;
         }
 
         /* سەرەکی (Header) */
@@ -71,7 +74,7 @@
 
         .search-item {
             padding: 0 16px;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             font-weight: 600;
         }
 
@@ -128,7 +131,7 @@
             gap: 6px;
             color: var(--text-muted);
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             white-space: nowrap;
             transition: var(--transition);
@@ -182,24 +185,24 @@
         }
 
         .card-info {
-            padding-top: 12px;
+            padding-top: 14px;
         }
 
         .card-header-row {
             display: flex;
             justify-content: space-between;
             font-weight: 600;
-            font-size: 0.98rem;
+            font-size: 1rem;
         }
 
         .card-location {
             color: var(--text-muted);
-            font-size: 0.88rem;
+            font-size: 0.9rem;
         }
 
         .card-price {
             margin-top: 6px;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         /* بەشی حجزکردن */
@@ -227,7 +230,7 @@
             display: block;
             margin-bottom: 6px;
             font-weight: 600;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
         }
 
         .form-control {
@@ -266,7 +269,7 @@
             border-top: 1px solid var(--border-color);
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.88rem;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
@@ -377,7 +380,6 @@
                 <h2 style="text-align: center; margin-bottom: 24px; color: var(--primary);">داواکردنی ژوور / Request to Book</h2>
                 
                 <form onsubmit="event.preventDefault(); alert('سوپاس، داواکارییەکەت گەیشت!');" style="display: flex; flex-direction: column; gap: 16px;">
-                    
                     <div class="form-group">
                         <label>ناوی تەواو / Full Name</label>
                         <input type="text" class="form-control" placeholder="ناوی تەواو بنووسە" required>
