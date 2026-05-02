@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پەنەڵی بەڕێوەبردنی هۆتێل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF385C;
+            --text-main: #222222;
+            --text-muted: #717171;
+            --border-color: #DDDDDD;
+            --shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #F7F7F7;
+            padding: 40px;
+            color: var(--text-main);
+            line-height: 1.6;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: right;
+        }
+
+        th {
+            background-color: #FAFAFA;
+            font-weight: 700;
+        }
+
+        .no-data {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>سەرجەم حجزکردنەکانی گەشتیاران</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ناوی تەواو</th>
+                    <th>ئیمەیڵ</th>
+                    <th>جۆری ژوور</th>
+                    <th>بەروار</th>
+                    <th>تێبینی</th>
+                </tr>
+            </thead>
+            <tbody id="bookingTable">
+                <tr>
+                    <td colspan="5" class="no-data">چاوەڕوان بە...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxIC2nltLHU24g3JaYvaQepRunj4PtPHc",
+            authDomain: "kurdistan-hotel-booking.firebaseapp.com",
+            projectId: "kurdistan-hotel-booking",
+            storageBucket: "kurdistan-hotel-booking.firebasestorage.app",
+            messagingSenderId: "83095307994",
+            appId: "1:83095307994:web:91b1d16a28f08c039787e3",
+            measurementId: "G-CL5GFZB2CN"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchBookings() {
+            const tableBody = document.getElementById("bookingTable");
+            tableBody.innerHTML = '<tr><td colspan="5" class="no-data">چاوەڕوان بە...</td></tr>';
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "bookings"));
+                tableBody.innerHTML = ''; 
+
+                if (querySnapshot.empty) {
+                    tableBody.innerHTML = '<tr><td colspan="5" class="no-data">هیچ حجزکردنێک نییە.</td></tr>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = `
+                        <tr>
+                            <td>${data.fullName}</td>
+                            <td>${data.email}</td>
+                            <td>${data.roomType}</td>
+                            <td>${data.date}</td>
+                            <td>${data.notes || 'هیچ'}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="no-data" style="color:red;">کێشە لە هێنانەوەی داتاکان ڕوویدا.</td></tr>`;
+            }
+        }
+
+        fetchBookings();
+    </script>
+</body>
+</html>
