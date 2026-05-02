@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF385C; /* ڕەنگی تایبەتی Airbnb */
+            --primary: #FF385C;
             --text-main: #222222;
             --text-muted: #717171;
             --bg-card: #FFFFFF;
@@ -25,7 +25,6 @@
         }
 
         body {
-            /* بەکارهێنانی فۆنتی Vazirmatn کە زۆر جوان و ڕوونە بۆ کوردی */
             font-family: 'Vazirmatn', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
@@ -33,7 +32,6 @@
             direction: rtl;
         }
 
-        /* سەرەکی (Header) */
         .header {
             display: flex;
             justify-content: space-between;
@@ -113,7 +111,6 @@
             background-color: #F7F7F7;
         }
 
-        /* بەشی Categories */
         .categories {
             display: flex;
             gap: 40px;
@@ -144,7 +141,6 @@
             font-size: 1.4rem;
         }
 
-        /* سەرەکی و ناوەڕۆک */
         .main-container {
             padding: 40px 40px;
             max-width: 1600px;
@@ -205,7 +201,6 @@
             font-size: 1.05rem;
         }
 
-        /* بەشی حجزکردن */
         .booking-section {
             margin-top: 60px;
             background: #F7F7F7;
@@ -379,34 +374,34 @@
             <div class="booking-container">
                 <h2 style="text-align: center; margin-bottom: 24px; color: var(--primary);">داواکردنی ژوور / Request to Book</h2>
                 
-                <form onsubmit="event.preventDefault(); alert('سوپاس، داواکارییەکەت گەیشت!');" style="display: flex; flex-direction: column; gap: 16px;">
+                <form id="bookingForm" style="display: flex; flex-direction: column; gap: 16px;">
                     <div class="form-group">
                         <label>ناوی تەواو / Full Name</label>
-                        <input type="text" class="form-control" placeholder="ناوی تەواو بنووسە" required>
+                        <input type="text" id="fullName" class="form-control" placeholder="ناوی تەواو بنووسە" required>
                     </div>
                     
                     <div class="form-group">
                         <label>ئیمەیڵ / Email</label>
-                        <input type="email" class="form-control" placeholder="info@example.com" required>
+                        <input type="email" id="email" class="form-control" placeholder="info@example.com" required>
                     </div>
 
                     <div class="form-group">
                         <label>جۆری ژوور / Room Type</label>
-                        <select class="form-control" required>
+                        <select id="roomType" class="form-control" required>
                             <option value="" disabled selected>جۆری ژوور هەڵبژێرە</option>
-                            <option>ژووری تاک / Single Room ($50)</option>
-                            <option>سویت / Suite ($150)</option>
+                            <option value="ژووری تاک / Single Room ($50)">ژووری تاک / Single Room ($50)</option>
+                            <option value="سویت / Suite ($150)">سویت / Suite ($150)</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>بەرواری گەیشتن / Date</label>
-                        <input type="date" class="form-control" required>
+                        <input type="date" id="date" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label>تێبینییەکان / Notes</label>
-                        <textarea class="form-control" rows="3" placeholder="تێبینی یان داواکاری تایبەت"></textarea>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="تێبینی یان داواکاری تایبەت"></textarea>
                     </div>
 
                     <button type="submit" class="btn-airbnb">ناردنی داواکاری / Submit</button>
@@ -416,8 +411,52 @@
     </div>
 
     <footer>
-        <p>© 2026 Kurdistan Hotel - Designed by Sahand Erfan</p>
+        <p>© 2026 Kurdistan Hotel - Designed by Sahand Malik</p>
     </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+        // زانیاری پڕۆژەکەت
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxIC2nltLHU24g3JaYvaQepRunj4PtPHc",
+            authDomain: "kurdistan-hotel-booking.firebaseapp.com",
+            projectId: "kurdistan-hotel-booking",
+            storageBucket: "kurdistan-hotel-booking.firebasestorage.app",
+            messagingSenderId: "83095307994",
+            appId: "1:83095307994:web:91b1d16a28f08c039787e3",
+            measurementId: "G-CL5GFZB2CN"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById("fullName").value;
+            const email = document.getElementById("email").value;
+            const roomType = document.getElementById("roomType").value;
+            const date = document.getElementById("date").value;
+            const notes = document.getElementById("notes").value;
+
+            try {
+                await addDoc(collection(db, "bookings"), {
+                    fullName: fullName,
+                    email: email,
+                    roomType: roomType,
+                    date: date,
+                    notes: notes,
+                    timestamp: new Date()
+                });
+                alert("سوپاس، داواکارییەکەت گەیشتە هۆتێل!");
+                document.getElementById("bookingForm").reset();
+            } catch (error) {
+                alert("هەڵەیەک ڕوویدا: " + error.message);
+            }
+        });
+    </script>
 
 </body>
 </html>
