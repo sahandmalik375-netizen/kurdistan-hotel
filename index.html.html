@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurdistan Hotel | هۆتێلی کوردستان</title>
+    <style>
+        /* دیزاینی گشتی ماڵپەڕ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #222;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* مینوو و لۆگۆ */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #FF385C; /* ستایلی Airbnb */
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #222;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #FF385C;
+        }
+
+        .lang-btn {
+            background-color: #FF385C;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: 0.2s;
+        }
+
+        .lang-btn:hover {
+            background-color: #d32341;
+        }
+
+        /* بەشی وێنەی سەرەکی (Hero Section) */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3') no-repeat center center/cover;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #f0f0f0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* سندوقی گەڕان */
+        .search-bar {
+            display: flex;
+            background: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            margin-top: 40px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            align-items: center;
+            gap: 20px;
+            max-width: 850px;
+            width: 100%;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            flex: 1;
+            padding: 5px 10px;
+        }
+
+        .input-group label {
+            font-size: 11px;
+            color: #222;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .input-group input, .input-group select {
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #666;
+            width: 100%;
+            padding: 4px 0;
+        }
+
+        .search-btn {
+            background-color: #FF385C;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: #d32341;
+        }
+
+        /* بەشی ژوورەکان */
+        .rooms-section {
+            padding: 60px 8%;
+            background-color: #ffffff;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .rooms-section h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #222;
+        }
+
+        .room-cards {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .room-card {
+            background: #ffffff;
+            width: 32%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: 0.3s;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .room-info {
+            padding: 20px;
+            text-align: right;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .room-info h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #222;
+        }
+
+        .room-info p {
+            font-size: 14px;
+            color: #717171;
+            margin-bottom: 6px;
+        }
+
+        .room-info .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .details-btn {
+            background-color: #FF385C;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .details-btn:hover {
+            background-color: #d32341;
+        }
+
+        /* بەشی کۆتایی (Footer) */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 50px 8% 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            text-align: right;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #FF385C;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #FF385C;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* خۆگونجاندن بۆ مۆبایل */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .hero {
+                height: 550px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .search-bar {
+                flex-direction: column;
+                width: 90%;
+                gap: 15px;
+                padding: 15px;
+            }
+            .input-group {
+                width: 100%;
+                text-align: center;
+            }
+            .room-cards {
+                flex-direction: column;
+                gap: 25px;
+            }
+            .room-card {
+                width: 100%;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .footer-section {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">Kurdistan Hotel</div>
+        <nav>
+            <a href="#">سەرەکی</a>
+            <a href="#">ژوورەکان</a>
+            <a href="#">خزمەتگوزارییەکان</a>
+            <a href="#">پەیوەندی</a>
+            <button class="lang-btn">English / کوردی</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>باشترین شوێن بۆ مانەوە لە کوردستان</h1>
+            <p>ژووری مۆدێرن و کوالێتی بەرز بۆ کاتی پشووتان.</p>
+        </div>
+        
+        <div class="search-bar">
+            <div class="input-group">
+                <label>چوونەژوورەوە</label>
+                <input type="date">
+            </div>
+            <div class="input-group">
+                <label>دەرچوون</label>
+                <input type="date">
+            </div>
+            <div class="input-group">
+                <label>جۆری ژوور</label>
+                <select>
+                    <option>ژووری تاکەکەسی</option>
+                    <option>ژووری دووانە</option>
+                    <option>ژووری خێزانی</option>
+                </select>
+            </div>
+            <button class="search-btn" onclick="searchRooms()">گەڕان</button>
+        </div>
+    </section>
+
+    <section class="rooms-section">
+        <h2>ژوورەکانمان</h2>
+        <div class="room-cards">
+            
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1596141936132-0c2d76e93e2b" alt="ژووری خێزانی">
+                <div class="room-info">
+                    <h3>ژووری خێزانی</h3>
+                    <p class="price">$٨٠ / شەو</p>
+                    <p>پێکهاتەکان: چێشتخانە، ژووری نوستن، گەرماو</p>
+                    <button class="details-btn">وردەکارییەکان</button>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e36f39" alt="ژووری دووانە">
+                <div class="room-info">
+                    <h3>ژووری دووانە</h3>
+                    <p class="price">$٥٠ / شەو</p>
+                    <p>پێکهاتەکان: ژووری نوستن، گەرماو</p>
+                    <button class="details-btn">وردەکارییەکان</button>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf" alt="ژووری تاکەکەسی">
+                <div class="room-info">
+                    <h3>ژووری تاکەکەسی</h3>
+                    <p class="price">$٣٥ / شەو</p>
+                    <p>پێکهاتەکان: نوستن، گەرماو</p>
+                    <button class="details-btn">وردەکارییەکان</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>هۆتێلی کوردستان</h3>
+                <p>باشترین هەڵبژاردن بۆ پشوودانێکی ئارام و کوالێتی بەرز لە دڵی کوردستاندا.</p>
+            </div>
+            <div class="footer-section">
+                <h3>بەستەرە خێراکان</h3>
+                <a href="#">سەرەکی</a>
+                <a href="#">ژوورەکان</a>
+                <a href="#">خزمەتگوزارییەکان</a>
+                <a href="#">پەیوەندی بە ئێمەوە</a>
+            </div>
+            <div class="footer-section">
+                <h3>پەیوەندی</h3>
+                <p>سلێمانی، شەقامی سەرەکی</p>
+                <p>مۆبایل: 0770 000 0000</p>
+                <p>ئیمەیڵ: info@kurdistanhotel.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 هۆتێلی کوردستان. هەموو مافەکان پارێزراون.</p>
+        </div>
+    </footer>
+
+    <script>
+        function searchRooms() {
+            // وەرگرتنی بەرواری چوونەژوورەوە
+            const checkInDate = document.querySelector('input[type="date"]').value;
+            
+            // پشکنینی ئەوەی ئایا بەروار دیاری کراوە یان نا
+            if (checkInDate === "") {
+                alert("تکایە بەرواری چوونەژوورەوە دیاری بکە!");
+            } else {
+                alert("سوپاس بۆ هەڵبژاردنەکەت! داواکارییەکەت بە سەرکەوتوویی تۆمارکرا.");
+            }
+        }
+    </script>
+
+</body>
+</html>
