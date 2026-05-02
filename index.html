@@ -3,26 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kurdistan Hotel | هۆتێلی کوردستان</title>
+    <title>Kurdistan Hotel - Airbnb Style</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --text-color: #212529;
-            --primary-color: #1a2530;
-            --accent-color: #c5a059; /* ڕەنگی ئاڵتوونی مۆدێرن */
-            --card-bg: #ffffff;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --transition: all 0.4s ease;
-        }
-
-        /* دۆخی تاریک - Dark Mode */
-        body.dark-mode {
-            --bg-color: #121824;
-            --text-color: #ffffff;
-            --primary-color: #0d111a;
-            --card-bg: #1e293b;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --primary: #FF385C; /* ڕەنگی تایبەتی Airbnb */
+            --text-main: #222222;
+            --text-muted: #717171;
+            --bg-card: #FFFFFF;
+            --border-color: #DDDDDD;
+            --bg-body: #FFFFFF;
+            --shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -34,307 +26,396 @@
 
         body {
             font-family: 'Cairo', 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: var(--transition);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
         }
 
-        /* سەرەکی (Navbar) */
-        .navbar {
+        /* سەرەکی (Header) */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 5%;
-            background-color: var(--primary-color);
+            padding: 18px 40px;
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
+            background: white;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .navbar .logo {
-            color: var(--accent-color);
-            font-size: 1.5rem;
+        .logo {
+            color: var(--primary);
+            font-size: 1.6rem;
             font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 6px 12px 6px 20px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-bar:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .search-item {
+            padding: 0 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .search-item:not(:last-child) {
+            border-left: 1px solid var(--border-color);
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
-            align-items: center;
+            gap: 15px;
             list-style: none;
         }
 
         .nav-links a {
-            color: #ffffff;
             text-decoration: none;
-            font-weight: 600;
+            color: var(--text-main);
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 20px;
             transition: var(--transition);
         }
 
         .nav-links a:hover {
-            color: var(--accent-color);
+            background-color: #F7F7F7;
         }
 
-        /* دوگمەی گۆڕینی دۆخ */
-        .theme-toggle {
-            background: none;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
+        /* بەشی Categories */
+        .categories {
+            display: flex;
+            gap: 40px;
+            padding: 20px 40px;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-color);
+            background: white;
         }
 
-        .theme-toggle:hover {
-            background: var(--accent-color);
-            color: #ffffff;
-        }
-
-        /* بەشی سەرەکی (Header) */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
-            height: 75vh;
+        .category-item {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            color: #ffffff;
-        }
-
-        .hero h2 {
-            font-size: 1.6rem;
-            color: var(--accent-color);
-            margin-bottom: 30px;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: #ffffff;
-            padding: 14px 38px;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            gap: 6px;
+            color: var(--text-muted);
             cursor: pointer;
-            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.6);
+        .category-item:hover, .category-item.active {
+            color: var(--text-main);
         }
 
-        /* بەشەکان (Sections) */
-        .section {
-            padding: 80px 5%;
-            max-width: 1250px;
+        .category-icon {
+            font-size: 1.4rem;
+        }
+
+        /* سەرەکی و ناوەڕۆک */
+        .main-container {
+            padding: 40px 40px;
+            max-width: 1600px;
             margin: auto;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
-            position: relative;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background-color: var(--accent-color);
-            margin: 12px auto 0;
-            border-radius: 2px;
-        }
-
-        .grid-container {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .card {
-            background-color: var(--card-bg);
-            padding: 35px 25px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
             transition: var(--transition);
-            border-top: 5px solid var(--accent-color);
         }
 
         .card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-4px);
         }
 
-        .card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-
-        .card p {
-            line-height: 1.7;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        /* فۆرمی حجزکردن */
-        .booking-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            border: 1px solid rgba(197, 160, 89, 0.2);
-        }
-
-        .booking-form input, 
-        .booking-form select, 
-        .booking-form textarea {
+        .card-img {
             width: 100%;
-            padding: 14px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .card-info {
+            padding-top: 12px;
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 0.98rem;
+        }
+
+        .card-location {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .card-price {
+            margin-top: 6px;
+            font-size: 0.95rem;
+        }
+
+        /* بەشی حجزکردن */
+        .booking-section {
+            margin-top: 60px;
+            background: #F7F7F7;
+            padding: 50px 40px;
+            border-radius: 16px;
+        }
+
+        .booking-container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            border: 1px solid #ccc;
             font-family: inherit;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            outline: 1px solid var(--text-main);
+        }
+
+        .btn-airbnb {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            width: 100%;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .booking-form input:focus, 
-        .booking-form select:focus {
-            border-color: var(--accent-color);
-            outline: none;
+        .btn-airbnb:hover {
+            background: #D90B38;
         }
 
-        /* کۆتایی (Footer) */
         footer {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            text-align: center;
             padding: 30px;
-            font-size: 0.95rem;
+            background: #F7F7F7;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.88rem;
         }
 
-        @media(max-width: 768px) {
-            .navbar { padding: 1.2rem 2%; flex-direction: column; gap: 15px; }
-            .hero h1 { font-size: 2.1rem; }
+        @media (max-width: 768px) {
+            .header { padding: 18px 20px; }
+            .search-bar { display: none; }
+            .categories { gap: 20px; padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">Kurdistan Hotel</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home / سەرەکی</a></li>
-            <li><a href="#services">Services / خزمەتگوزاری</a></li>
-            <li><a href="#rooms">Rooms / ژوورەکان</a></li>
-            <li><a href="#booking">Book / حجزکردن</a></li>
-            <li><a href="#contact">Contact / پەیوەندی</a></li>
-        </ul>
-        <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode / دۆخی تاریک</button>
-    </nav>
+    <header class="header">
+        <a href="#" class="logo">
+            <span>🏨</span> Kurdistan Hotel
+        </a>
 
-    <header class="hero" id="home">
-        <h1>Welcome to Kurdistan Hotel</h1>
-        <h2>بەخێربێن بۆ هۆتێلی کوردستان</h2>
-        <a href="#booking" class="btn-primary">Book Now / ئێستا حجز بکە</a>
+        <div class="search-bar">
+            <div class="search-item">هەرێمی کوردستان</div>
+            <div class="search-item" style="color: var(--text-muted);">کەی دەست پێ دەکات؟</div>
+            <button class="search-btn">
+                <svg width="12" height="12" viewBox="0 0 18 18" style="fill:white;"><path d="M16.29,15.29L12,11A6,6,0,1,0,11,12l4.29,4.29a1,1,0,0,0,1.42,0A1,1,0,0,0,16.29,15.29ZM6,10A4,4,0,1,1,10,6,4,4,0,0,1,6,10Z"/></svg>
+            </button>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#rooms">ژوورەکان</a></li>
+            <li><a href="#services">خزمەتگوزاری</a></li>
+            <li><a href="#booking">حجزکردن</a></li>
+        </ul>
     </header>
 
-    <section class="section" id="services">
-        <h2 class="section-title">Our Services / خزمەتگوزارییەکانمان</h2>
-        <div class="grid-container">
-            <div class="card">
-                <h3>🍴 Restaurant / چێشتخانە</h3>
-                <p>چێژ لە خواردنی خۆماڵی و جیهانی وەربگرە لەگەڵ باشترین شێفەکان.<br><br><em>Enjoy local and international dishes.</em></p>
-            </div>
-            <div class="card">
-                <h3>🏊 Pool & Spa / مەلەوانگە و سپا</h3>
-                <p>پشوودانێکی تەواو لە مەلەوانگە و ژوورە تایبەتەکانی سپا.<br><br><em>Relax in our luxury spa and pool.</em></p>
-            </div>
-            <div class="card">
-                <h3>📶 Free WiFi / وایفای خێرا</h3>
-                <p>ئینتەرنێتی بێ بەرامبەر و خێرا لە هەموو بەشەکانی هۆتێلەکە.<br><br><em>High-speed free internet.</em></p>
-            </div>
+    <div class="categories">
+        <div class="category-item active">
+            <span class="category-icon">🏨</span>
+            <span>هەموو ژوورەکان</span>
         </div>
-    </section>
-
-    <section class="section" id="rooms" style="background-color: var(--bg-color);">
-        <h2 class="section-title">Luxury Rooms / ژوورە ناوازەکان</h2>
-        <div class="grid-container">
-            <div class="card">
-                <h3>Single Room / ژووری تاک</h3>
-                <p>تایبەتمەندی: جێگەی نووستنی تاک، ئینتەرنێت، دیمەنێکی جوان.<br><br><strong>$50 / شەو</strong></p>
-            </div>
-            <div class="card">
-                <h3>Suite Room / سویت</h3>
-                <p>تایبەتمەندی: ژووری میوان، جێگەی نووستنی دوو کەسی، مینی بار.<br><br><strong>$150 / شەو</strong></p>
-            </div>
+        <div class="category-item">
+            <span class="category-icon">✨</span>
+            <span>ژووری ناوازە (Suite)</span>
         </div>
-    </section>
-
-    <section class="section" id="booking">
-        <h2 class="section-title">Book a Room / داواکردنی ژوور</h2>
-        <form class="booking-form" onsubmit="event.preventDefault(); alert('سوپاس، داواکارییەکەت گەیشت!');">
-            <input type="text" placeholder="ناوی تەواو / Full Name" required>
-            <input type="email" placeholder="ئیمەیڵ / Email" required>
-            <select required>
-                <option value="" disabled selected>جۆری ژوور هەڵبژێرە / Select Room Type</option>
-                <option>ژووری تاک / Single Room ($50)</option>
-                <option>سویت / Suite ($150)</option>
-            </select>
-            <input type="date" required>
-            <textarea placeholder="تێبینییەکانت / Your Notes" rows="3"></textarea>
-            <button type="submit" class="btn-primary" style="border: none; padding: 14px; cursor: pointer; border-radius: 8px;">ناردنی داواکاری / Submit</button>
-        </form>
-    </section>
-
-    <section class="section" id="contact" style="background-color: var(--card-bg);">
-        <h2 class="section-title">Contact Us / پەیوەندیمان پێوە بکە</h2>
-        <div style="text-align: center; line-height: 2.0; font-size: 1.1rem;">
-            <p>📍 سلێمانی، هەرێمی کوردستان</p>
-            <p>📞 +964 770 000 0000</p>
-            <p>📧 info@kurdistanhotel.com</p>
+        <div class="category-item">
+            <span class="category-icon">📶</span>
+            <span>خێرایی ئینتەرنێت</span>
         </div>
-    </section>
+        <div class="category-item">
+            <span class="category-icon">🏊</span>
+            <span>مەلەوانگە و سپا</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        
+        <section id="rooms">
+            <div class="section-title">
+                <h2>ژوورەکان / Rooms</h2>
+                <span style="font-weight: 500; color: var(--text-muted);">نزیکەی ٢ جۆر ژووری بەردەست</span>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img class="card-img" src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Single Room">
+                    <div class="card-info">
+                        <div class="card-header-row">
+                            <span>ژووری تاک / Single Room</span>
+                            <span>⭐ 4.8</span>
+                        </div>
+                        <div class="card-location">سلێمانی، هەرێمی کوردستان</div>
+                        <div class="card-price"><strong>$50</strong> / شەو</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img class="card-img" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Suite">
+                    <div class="card-info">
+                        <div class="card-header-row">
+                            <span>سویت / Luxury Suite</span>
+                            <span>⭐ 4.9</span>
+                        </div>
+                        <div class="card-location">سلێمانی، هەرێمی کوردستان</div>
+                        <div class="card-price"><strong>$150</strong> / شەو</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="services" style="margin: 60px 0;">
+            <div class="section-title">
+                <h2>خزمەتگوزارییەکان / Services</h2>
+            </div>
+            <div class="grid">
+                <div class="card" style="padding: 24px; border: 1px solid var(--border-color);">
+                    <h3 style="color: var(--primary); margin-bottom: 8px;">🍴 چێشتخانە (Restaurant)</h3>
+                    <p style="color: var(--text-muted);">چێژ لە خواردنی خۆماڵی و جیهانی وەربگرە لەگەڵ باشترین شێفەکان.</p>
+                </div>
+                <div class="card" style="padding: 24px; border: 1px solid var(--border-color);">
+                    <h3 style="color: var(--primary); margin-bottom: 8px;">🏊 مەلەوانگە و سپا (Pool & Spa)</h3>
+                    <p style="color: var(--text-muted);">پشوودانێکی تەواو لە مەلەوانگە و ژوورە تایبەتەکانی سپا.</p>
+                </div>
+                <div class="card" style="padding: 24px; border: 1px solid var(--border-color);">
+                    <h3 style="color: var(--primary); margin-bottom: 8px;">📶 وایفای خێرا (Free WiFi)</h3>
+                    <p style="color: var(--text-muted);">ئینتەرنێتی بێ بەرامبەر و خێرا لە هەموو بەشەکانی هۆتێلەکە.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="booking-section" id="booking">
+            <div class="booking-container">
+                <h2 style="text-align: center; margin-bottom: 24px; color: var(--primary);">داواکردنی ژوور / Request to Book</h2>
+                
+                <form onsubmit="event.preventDefault(); alert('سوپاس، داواکارییەکەت گەیشت!');" style="display: flex; flex-direction: column; gap: 16px;">
+                    
+                    <div class="form-group">
+                        <label>ناوی تەواو / Full Name</label>
+                        <input type="text" class="form-control" placeholder="ناوی تەواو بنووسە" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>ئیمەیڵ / Email</label>
+                        <input type="email" class="form-control" placeholder="info@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>جۆری ژوور / Room Type</label>
+                        <select class="form-control" required>
+                            <option value="" disabled selected>جۆری ژوور هەڵبژێرە</option>
+                            <option>ژووری تاک / Single Room ($50)</option>
+                            <option>سویت / Suite ($150)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>بەرواری گەیشتن / Date</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>تێبینییەکان / Notes</label>
+                        <textarea class="form-control" rows="3" placeholder="تێبینی یان داواکاری تایبەت"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-airbnb">ناردنی داواکاری / Submit</button>
+                </form>
+            </div>
+        </section>
+    </div>
 
     <footer>
-        <p>© 2026 Kurdistan Hotel - Developed by Sahand Malik</p>
+        <p>© 2026 Kurdistan Hotel - Designed by Sahand Malik</p>
     </footer>
-
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            body.classList.toggle('dark-mode');
-            
-            const button = document.querySelector('.theme-toggle');
-            if (body.classList.contains('dark-mode')) {
-                button.innerHTML = '☀️ Light Mode / دۆخی ڕۆشن';
-            } else {
-                button.innerHTML = '🌙 Dark Mode / دۆخی تاریک';
-            }
-        }
-    </script>
 
 </body>
 </html>
